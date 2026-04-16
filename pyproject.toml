@@ -1,0 +1,64 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mcp-server-fxmacrodata"
+version = "0.1.0"
+description = "MCP server for the FXMacroData API — macroeconomic indicators, release calendars, COT, commodities, and forex for AI agents."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "FXMacroData", email = "info@fxmacrodata.com" }]
+keywords = [
+    "mcp",
+    "model-context-protocol",
+    "forex",
+    "macro",
+    "macroeconomics",
+    "trading",
+    "fxmacrodata",
+    "ai-agent",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
+dependencies = [
+    "mcp>=1.0",
+    "fxmacrodata>=1.1",
+    "httpx>=0.27",
+]
+
+[project.urls]
+Homepage = "https://fxmacrodata.com"
+Documentation = "https://fxmacrodata.com/documentation"
+Source = "https://github.com/fxmacrodata/mcp-server-fxmacrodata"
+Issues = "https://github.com/fxmacrodata/mcp-server-fxmacrodata/issues"
+
+[project.scripts]
+mcp-server-fxmacrodata = "mcp_server_fxmacrodata.server:main"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pytest-asyncio>=0.23",
+    "python-dotenv>=1.1",
+    "ruff>=0.0",
+    "build>=1.0",
+    "twine>=4.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["mcp_server_fxmacrodata*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
