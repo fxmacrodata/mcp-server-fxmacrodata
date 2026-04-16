@@ -1,0 +1,99 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - dev
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build_test_and_release:
+    name: Build, Test, and Publish (${{ github.ref_name }})
+    runs-on: ubuntu-latest
+
+    env:
+      IS_MAIN: ${{ github.ref_name == 'main' }}
+      IS_DEV: ${{ github.ref_name == 'dev' }}
+
+    strategy:
+      matrix:
+        python-version: [3.12]
+
+    steps:
+      - name: Checkout repository (full history for semantic-release)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # ── Environment Setup ──────────────────────────────
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          pip install -e ".[dev]"
+          pip install build twine python-semantic-release
+
+      # ── Quality Checks ─────────────────────────────────
+      - name: Lint (Ruff)
+        run: ruff check src tests
+
+      - name: Run Tests
+        run: pytest -v
+
+      # ── Release ────────────────────────────────────────
+      - name: Set Git config for semantic-release
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Bootstrap initial tag (main only)
+        if: github.ref_name == 'main'
+        run: |
+          if [ -z "$(git tag -l)" ]; then
+            echo "No tags found — creating v0.0.0"
+            git tag v0.0.0
+            git push origin v0.0.0
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Semantic release (dev)
+        if: env.IS_DEV == 'true'
+        run: python -m semantic_release publish
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Semantic release (main)
+        if: env.IS_MAIN == 'true'
+        run: python -m semantic_release publish
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # ── Build ──────────────────────────────────────────
+      - name: Build distributions
+        run: python -m build
+
+      # ── Publish to TestPyPI (dev) ──────────────────────
+      - name: Publish to TestPyPI
+        if: env.IS_DEV == 'true'
+        env:
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.MCP_PYPI_DEV }}
+          TWINE_REPOSITORY_URL: https://test.pypi.org/legacy/
+        run: twine upload dist/* --skip-existing
+
+      # ── Publish to PyPI (main) ─────────────────────────
+      - name: Publish to PyPI
+        if: env.IS_MAIN == 'true'
+        env:
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.MCP_PYPI_PROD }}
+        run: twine upload dist/* --skip-existing
