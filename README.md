@@ -18,6 +18,8 @@ FXMACRODATA_API_KEY=your_key uvx mcp-server-fxmacrodata
 
 Get a free API key at [fxmacrodata.com/api-management](https://fxmacrodata.com/api-management).
 
+For a provider-agnostic install guide that works across multiple AI clients, see [llms-install.md](llms-install.md).
+
 ## Configure your MCP client
 
 ### Claude Desktop
