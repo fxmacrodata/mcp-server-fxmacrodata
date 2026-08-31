@@ -22,13 +22,15 @@ from mcp.server.fastmcp import FastMCP
 # Configuration
 # ---------------------------------------------------------------------------
 
+DEFAULT_BASE_URL = "https://api.fxmacrodata.com"
+
 API_KEY = os.environ.get("FXMACRODATA_API_KEY", "")
-BASE_URL = os.environ.get("FXMACRODATA_BASE_URL", "https://fxmacrodata.com/api")
+BASE_URL = os.environ.get("FXMACRODATA_BASE_URL", DEFAULT_BASE_URL)
 
 _client = Client(api_key=API_KEY or None)
 
-# Override base URL if the user changed it (e.g., for dev server).
-if BASE_URL != "https://fxmacrodata.com/api":
+# Override base URL if the user changed it (e.g., for a dev server).
+if BASE_URL != DEFAULT_BASE_URL:
     _client.BASE_URL = BASE_URL
 
 # ---------------------------------------------------------------------------
@@ -40,7 +42,9 @@ mcp = FastMCP(
     instructions=(
         "FXMacroData provides macroeconomic indicator data, release calendars, "
         "COT positioning, commodities, forex rates, and FX market session info. "
-        "USD data is free. Non-USD data requires an API key."
+        "Without an API key, USD announcement and calendar data is available for "
+        "the most recent 90 days. An API key unlocks full history, all 18 "
+        "currencies, and the forex, COT and commodities tools."
     ),
 )
 
@@ -68,7 +72,7 @@ def _handle_error(tool_name: str, exc: Exception) -> str:
         return json.dumps({
             "error": f"{tool_name} requires an API key for this request.",
             "help": "Set the FXMACRODATA_API_KEY environment variable. "
-                    "Get your key at https://fxmacrodata.com/api-management",
+                    "Get your key at https://api.fxmacrodata.com-management",
         })
     return json.dumps({"error": msg})
 

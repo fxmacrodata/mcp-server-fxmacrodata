@@ -126,7 +126,7 @@ Then ask the client:
 ## 8. Policy and support links
 
 - Main website: https://fxmacrodata.com
-- API management: https://fxmacrodata.com/api-management
+- API management: https://api.fxmacrodata.com-management
 - Privacy policy: https://fxmacrodata.com/privacy
 - Terms: https://fxmacrodata.com/terms
 - Support: info@fxmacrodata.com

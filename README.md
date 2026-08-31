@@ -18,7 +18,7 @@ rate, COT and commodities tools:
 FXMACRODATA_API_KEY=your_key uvx mcp-server-fxmacrodata
 ```
 
-Get a free API key at [fxmacrodata.com/api-management](https://fxmacrodata.com/api-management).
+Get a free API key at [fxmacrodata.com/api-management](https://api.fxmacrodata.com-management).
 
 For a provider-agnostic install guide that works across multiple AI clients, see [llms-install.md](llms-install.md).
 
@@ -116,7 +116,7 @@ Add to `~/.openclaw/openclaw.json`:
 | Variable | Default | Description |
 |----------|---------|-------------|
 | `FXMACRODATA_API_KEY` | *(none)* | API key for non-USD data |
-| `FXMACRODATA_BASE_URL` | `https://fxmacrodata.com/api` | Override API base URL |
+| `FXMACRODATA_BASE_URL` | `https://api.fxmacrodata.com` | Override API base URL |
 
 ## Install with pip
 
