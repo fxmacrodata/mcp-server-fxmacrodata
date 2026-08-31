@@ -13,13 +13,10 @@ from __future__ import annotations
 
 import json
 import os
-import sys
-from typing import Optional
 
 import httpx
-from mcp.server.fastmcp import FastMCP
-
 from fxmacrodata import Client, FXMacroDataError
+from mcp.server.fastmcp import FastMCP
 
 # ---------------------------------------------------------------------------
 # Configuration
@@ -115,7 +112,7 @@ def data_catalogue(currency: str) -> str:
         "indicator filter."
     ),
 )
-def release_calendar(currency: str, indicator: Optional[str] = None) -> str:
+def release_calendar(currency: str, indicator: str | None = None) -> str:
     """Return the release calendar for a currency."""
     try:
         result = _client.get_calendar(currency, indicator=indicator)
@@ -135,9 +132,9 @@ def release_calendar(currency: str, indicator: Optional[str] = None) -> str:
 def forex(
     base: str,
     quote: str,
-    start_date: Optional[str] = None,
-    end_date: Optional[str] = None,
-    indicators: Optional[str] = None,
+    start_date: str | None = None,
+    end_date: str | None = None,
+    indicators: str | None = None,
 ) -> str:
     """Return FX spot rates and optional technical indicators."""
     try:
@@ -163,8 +160,8 @@ def forex(
 def indicator_query(
     currency: str,
     indicator: str,
-    start_date: Optional[str] = None,
-    end_date: Optional[str] = None,
+    start_date: str | None = None,
+    end_date: str | None = None,
 ) -> str:
     """Return an indicator announcement time series."""
     try:
@@ -191,7 +188,7 @@ def indicator_query(
         "Covers Sydney, Tokyo, London, and New York sessions."
     ),
 )
-def market_sessions(at: Optional[str] = None) -> str:
+def market_sessions(at: str | None = None) -> str:
     """Return FX market session status."""
     params: dict[str, str] = {}
     if at:
@@ -216,8 +213,8 @@ def market_sessions(at: Optional[str] = None) -> str:
 )
 def cot_data(
     currency: str,
-    start_date: Optional[str] = None,
-    end_date: Optional[str] = None,
+    start_date: str | None = None,
+    end_date: str | None = None,
 ) -> str:
     """Return COT positioning data for a currency."""
     try:
@@ -238,8 +235,8 @@ def cot_data(
 )
 def commodities(
     indicator: str,
-    start_date: Optional[str] = None,
-    end_date: Optional[str] = None,
+    start_date: str | None = None,
+    end_date: str | None = None,
 ) -> str:
     """Return commodity price data."""
     try:

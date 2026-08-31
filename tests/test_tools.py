@@ -1,9 +1,7 @@
 """Basic tests for mcp-server-fxmacrodata tool registration."""
 
-import json
 
 from mcp_server_fxmacrodata.server import mcp
-
 
 EXPECTED_TOOLS = {
     "ping",
