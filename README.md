@@ -10,7 +10,9 @@ No install needed — run with [`uvx`](https://docs.astral.sh/uv/guides/tools/):
 uvx mcp-server-fxmacrodata
 ```
 
-USD data works immediately with no API key. For all currencies, set your key:
+USD macroeconomic data works immediately with no API key, covering the most
+recent 90 days. A key unlocks full history, all 18 currencies, and the FX
+rate, COT and commodities tools:
 
 ```bash
 FXMACRODATA_API_KEY=your_key uvx mcp-server-fxmacrodata
