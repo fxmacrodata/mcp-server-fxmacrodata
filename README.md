@@ -10,15 +10,15 @@ No install needed — run with [`uvx`](https://docs.astral.sh/uv/guides/tools/):
 uvx mcp-server-fxmacrodata
 ```
 
-USD macroeconomic data works immediately with no API key, covering the most
-recent 90 days. A key unlocks full history, all 18 currencies, and the FX
-rate, COT and commodities tools:
+Evaluate the MCP server with public USD macroeconomic data without an API key,
+covering the most recent 90 days. Connect an FXMacroData subscription for
+non-USD data, full available history, FX rates, COT and commodities:
 
 ```bash
 FXMACRODATA_API_KEY=your_key uvx mcp-server-fxmacrodata
 ```
 
-Get a free API key at [fxmacrodata.com/api-management](https://api.fxmacrodata.com-management).
+[Subscribe to FXMacroData](https://fxmacrodata.com/subscribe?utm_source=github&utm_medium=referral&utm_campaign=open_source_integrations&utm_content=mcp_server_subscribe), then connect the server using your own account's API key.
 
 For a provider-agnostic install guide that works across multiple AI clients, see [llms-install.md](llms-install.md).
 
