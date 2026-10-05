@@ -18,7 +18,7 @@ non-USD data, full available history, FX rates, COT and commodities:
 FXMACRODATA_API_KEY=your_key uvx mcp-server-fxmacrodata
 ```
 
-[Subscribe to FXMacroData](https://fxmacrodata.com/subscribe?utm_source=github&utm_medium=referral&utm_campaign=open_source_integrations&utm_content=mcp_server_subscribe), then connect the server using your own account's API key.
+[Subscribe to FXMacroData](https://fxmacrodata.com/subscribe?utm_source=github&utm_medium=referral&utm_campaign=mcp-server-fxmacrodata&utm_content=subscribe), then connect the server using your own account's API key.
 
 For a provider-agnostic install guide that works across multiple AI clients, see [llms-install.md](llms-install.md).
 
