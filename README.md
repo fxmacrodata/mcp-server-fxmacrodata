@@ -1,6 +1,6 @@
 # mcp-server-fxmacrodata
 
-A [Model Context Protocol](https://modelcontextprotocol.io) (MCP) server for the [FXMacroData API](https://fxmacrodata.com) — macroeconomic indicators, release calendars, COT positioning, commodities, and FX rates for AI agents.
+A [Model Context Protocol](https://modelcontextprotocol.io) (MCP) server for the [FXMacroData API](https://fxmacrodata.com/?utm_source=github&utm_medium=referral&utm_campaign=mcp-server-fxmacrodata&utm_content=readme) — macroeconomic indicators, release calendars, COT positioning, commodities, and FX rates for AI agents.
 
 ## Quick start
 

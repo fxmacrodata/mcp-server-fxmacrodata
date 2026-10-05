@@ -125,10 +125,10 @@ Then ask the client:
 
 ## 8. Policy and support links
 
-- Main website: https://fxmacrodata.com
+- Main website: https://fxmacrodata.com/?utm_source=github&utm_medium=referral&utm_campaign=mcp-server-fxmacrodata&utm_content=llms-install
 - API management: https://api.fxmacrodata.com-management
-- Privacy policy: https://fxmacrodata.com/privacy
-- Terms: https://fxmacrodata.com/terms
+- Privacy policy: https://fxmacrodata.com/privacy?utm_source=github&utm_medium=referral&utm_campaign=mcp-server-fxmacrodata&utm_content=llms-install
+- Terms: https://fxmacrodata.com/terms?utm_source=github&utm_medium=referral&utm_campaign=mcp-server-fxmacrodata&utm_content=llms-install
 - Support: info@fxmacrodata.com
 
 ## 9. Copy for installers
