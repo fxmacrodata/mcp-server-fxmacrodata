@@ -37,8 +37,8 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://fxmacrodata.com"
-Documentation = "https://fxmacrodata.com/documentation"
+Homepage = "https://fxmacrodata.com/?utm_source=pypi&utm_medium=referral&utm_campaign=mcp-server-fxmacrodata&utm_content=homepage"
+Documentation = "https://fxmacrodata.com/documentation?utm_source=pypi&utm_medium=referral&utm_campaign=mcp-server-fxmacrodata&utm_content=docs"
 Source = "https://github.com/fxmacrodata/mcp-server-fxmacrodata"
 Issues = "https://github.com/fxmacrodata/mcp-server-fxmacrodata/issues"
 

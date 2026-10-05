@@ -72,7 +72,9 @@ def _handle_error(tool_name: str, exc: Exception) -> str:
         return json.dumps({
             "error": f"{tool_name} requires an API key for this request.",
             "help": "Set the FXMACRODATA_API_KEY environment variable. "
-                    "Get your key at https://api.fxmacrodata.com-management",
+                    "Get your key at https://fxmacrodata.com/api-management"
+                    "?utm_source=mcp&utm_medium=integration"
+                    "&utm_campaign=mcp-server-fxmacrodata&utm_content=error",
         })
     return json.dumps({"error": msg})
 
