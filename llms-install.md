@@ -9,7 +9,9 @@ This guide is written for AI agents and humans installing FXMacroData MCP across
 - Transport: stdio MCP
 - Primary install path: `uvx mcp-server-fxmacrodata`
 
-USD data works without an API key. Non-USD data requires `FXMACRODATA_API_KEY`.
+Covers 22 currencies: AUD, BRL, CAD, CHF, CNH, CNY, DKK, EUR, GBP, HUF, ILS, JPY, KRW, MYR, NGN, NOK, NZD, PEN, SEK, THB, TWD, USD.
+
+USD announcements (most recent 90 days, 15 minutes after publication), the USD release calendar, USD COT and the data catalogue work without an API key. Other currencies, real-time releases, full history, FX rates and commodities require `FXMACRODATA_API_KEY`.
 
 ## 2. Quick start
 
@@ -102,8 +104,8 @@ Then ask the client:
 ## 6. API key guidance
 
 - Store the API key in the client environment, not in source control.
-- Use the key only for protected or non-USD requests.
-- USD paths should work without a key.
+- The key is sent as the `X-API-Key` header on every request, so USD releases arrive in real time.
+- USD paths work without a key, on a 15-minute delay.
 
 ## 7. Troubleshooting
 
@@ -126,7 +128,7 @@ Then ask the client:
 ## 8. Policy and support links
 
 - Main website: https://fxmacrodata.com/?utm_source=github&utm_medium=referral&utm_campaign=mcp-server-fxmacrodata&utm_content=llms-install
-- API management: https://api.fxmacrodata.com-management
+- API management: https://fxmacrodata.com/api-management?utm_source=github&utm_medium=referral&utm_campaign=mcp-server-fxmacrodata&utm_content=llms-install
 - Privacy policy: https://fxmacrodata.com/privacy?utm_source=github&utm_medium=referral&utm_campaign=mcp-server-fxmacrodata&utm_content=llms-install
 - Terms: https://fxmacrodata.com/terms?utm_source=github&utm_medium=referral&utm_campaign=mcp-server-fxmacrodata&utm_content=llms-install
 - Support: info@fxmacrodata.com
