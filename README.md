@@ -121,6 +121,7 @@ Add to `~/.openclaw/openclaw.json`:
 |----------|---------|-------------|
 | `FXMACRODATA_API_KEY` | *(none)* | API key, sent as the `X-API-Key` header |
 | `FXMACRODATA_BASE_URL` | `https://api.fxmacrodata.com` | Override API base URL (must be https, except localhost) |
+| `FXMACRODATA_TIMEOUT` | `30` | Request timeout in seconds |
 
 ## Install with pip
 

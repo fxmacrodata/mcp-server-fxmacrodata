@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 from typing import Any
 from urllib.parse import quote, urlsplit
 
@@ -35,7 +36,20 @@ _CURRENCY_LIST = ", ".join(SUPPORTED_CURRENCIES)
 
 COT_CURRENCIES = ("AUD", "CAD", "CHF", "EUR", "GBP", "JPY", "NZD", "USD")
 
-REQUEST_TIMEOUT = httpx.Timeout(30.0, connect=10.0)
+DEFAULT_TIMEOUT = 30.0
+
+
+def _env_timeout(raw: str | None) -> float:
+    """Read FXMACRODATA_TIMEOUT (seconds); fall back to the default if unset or invalid."""
+    try:
+        value = float(raw) if raw else DEFAULT_TIMEOUT
+    except ValueError:
+        return DEFAULT_TIMEOUT
+    return value if value > 0 else DEFAULT_TIMEOUT
+
+
+_READ_TIMEOUT = _env_timeout(os.environ.get("FXMACRODATA_TIMEOUT"))
+REQUEST_TIMEOUT = httpx.Timeout(_READ_TIMEOUT, connect=min(10.0, _READ_TIMEOUT))
 
 API_KEY = os.environ.get("FXMACRODATA_API_KEY", "").strip()
 
@@ -108,6 +122,11 @@ def _redact(text: str) -> str:
     return text
 
 
+# A valid key is printable ASCII with no spaces. Anything else is rejected
+# before httpx sees it, because httpx errors can quote the header value.
+_VALID_KEY = re.compile(r"[!-~]+")
+
+
 def _auth_headers() -> dict[str, str]:
     """Return auth headers if an API key is configured."""
     if API_KEY:
@@ -139,6 +158,11 @@ def _request(path: str, params: dict[str, str] | None = None) -> Any:
     Raises FXMacroDataAPIError for transport failures, redirects, non-200
     responses, non-JSON bodies and 200 responses that carry an error payload.
     """
+    if API_KEY and not _VALID_KEY.fullmatch(API_KEY):
+        raise FXMacroDataAPIError(
+            "FXMACRODATA_API_KEY contains spaces, control characters or "
+            "non-ASCII characters. Copy the key again from your account page."
+        )
     query = {k: v for k, v in (params or {}).items() if v is not None}
     try:
         resp = _http.get(f"{BASE_URL}{path}", params=query, headers=_auth_headers())

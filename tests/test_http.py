@@ -144,3 +144,24 @@ def test_base_url_accepted(raw, expected):
 def test_base_url_rejected(raw):
     with pytest.raises(ValueError):
         server._resolve_base_url(raw)
+
+
+@pytest.mark.parametrize(
+    "bad_key",
+    [f"{KEY} x", f"{KEY}\tx", f"{KEY}\x00", f"{KEY}\r\nX-Injected: 1", f"{KEY}é"],
+)
+def test_malformed_key_is_rejected_before_sending(api, monkeypatch, bad_key):
+    sent = api(lambda r: httpx.Response(200, json={"status": "ok"}))
+    monkeypatch.setattr(server, "API_KEY", bad_key)
+    raw = server.ping()
+    assert "FXMACRODATA_API_KEY" in json.loads(raw)["error"]
+    assert KEY not in raw
+    assert sent == []
+
+
+@pytest.mark.parametrize(
+    "raw,expected",
+    [(None, 30.0), ("", 30.0), ("12", 12.0), ("2.5", 2.5), ("abc", 30.0), ("0", 30.0), ("-5", 30.0)],
+)
+def test_env_timeout(raw, expected):
+    assert server._env_timeout(raw) == expected
